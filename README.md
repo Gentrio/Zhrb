@@ -17,11 +17,11 @@ Zhihu is a trademark of Zhihu. Inc. This app is not created nor endorsed by Zhih
   * build tool 24.0.0 rc1
   
 ##Permission - 权限说明
-```java
+```xml
 //获取网络状态
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 //用于访问网络
-<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.INTERNET"/>
 //读取扩展卡信息
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 //写入扩展卡信息
