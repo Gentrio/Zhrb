@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/ic_share_white_24dp"
+        android:title=""
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_star"
+        android:title=""
+        android:icon="@drawable/ic_star_white_24dp"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_comment"
+        android:title="..."
+        android:icon="@drawable/ic_comment_white_24dp"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_thumb"
+        android:title="..."
+        android:icon="@drawable/ic_thumb_up_white_24dp"
+        app:showAsAction="always" />
+</menu>
