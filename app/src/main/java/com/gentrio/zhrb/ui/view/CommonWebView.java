@@ -5,8 +5,10 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
 import android.util.AttributeSet;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import java.io.File;
 
@@ -69,5 +71,7 @@ public class CommonWebView extends WebView {
 //        settings.setUseWideViewPort(true);
 //        settings.setLoadWithOverviewMode(true);
         setHorizontalScrollBarEnabled(false);
+
+//        setWebChromeClient(new WebChromeClient());
     }
 }

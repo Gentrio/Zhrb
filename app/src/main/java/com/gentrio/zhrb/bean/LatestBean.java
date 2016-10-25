@@ -159,4 +159,8 @@ public class LatestBean {
         this.stories = stories;
         this.top_stories = top_stories;
     }
+
+    public LatestBean() {
+        super();
+    }
 }

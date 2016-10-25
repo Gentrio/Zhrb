@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 
 import okhttp3.OkHttpClient;
+import retrofit2.http.GET;
 
 /**
  * Created by Gentrio on 2016/10/20.
@@ -19,6 +20,7 @@ public class BaseApplication extends Application {
 
     private static String cachePath;
     private static Context context;
+    private static boolean isNight;
 
     @Override
     public void onCreate() {
@@ -49,5 +51,13 @@ public class BaseApplication extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static void setIsNight(boolean isNight) {
+        BaseApplication.isNight = isNight;
+    }
+
+    public static boolean getIsNight() {
+        return isNight;
     }
 }

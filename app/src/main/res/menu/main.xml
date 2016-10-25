@@ -2,18 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_message"
+        android:id="@+id/action_collect"
         android:title="收藏"
         android:icon="@drawable/ic_star_white_24dp"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_about"
         android:orderInCategory="100"
+        android:title="关于我"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="99"
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_night"
-        android:orderInCategory="99"
+        android:orderInCategory="98"
         android:title="@string/action_night"
         app:showAsAction="never" />
 </menu>

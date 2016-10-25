@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#202020</color>
+    <color name="colorPrimaryDark">#343434</color>
+    <color name="colorAccent">#FFFFFF</color>
+
+
+    <color name="feed_text">#f1f1f1</color>
+    <color name="feed_bg">#343434</color>
+    <color name="feed_item_bg">#434343</color>
+    <color name="feed_item_border">#c2c3c8</color>
+</resources>

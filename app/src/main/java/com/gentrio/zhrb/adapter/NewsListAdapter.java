@@ -103,9 +103,9 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
+        if (datas.getTop_stories() != null && position == 0) {
             return TOP_VIEW;
-        }else{
+        } else {
             return ITEM_VIEW;
         }
     }

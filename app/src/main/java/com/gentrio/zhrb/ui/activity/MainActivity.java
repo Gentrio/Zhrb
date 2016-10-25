@@ -1,7 +1,9 @@
 package com.gentrio.zhrb.ui.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.design.widget.NavigationView;
@@ -14,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.gentrio.zhrb.R;
 import com.gentrio.zhrb.adapter.NewsListAdapter;
+import com.gentrio.zhrb.app.BaseApplication;
 import com.gentrio.zhrb.bean.LatestBean;
 import com.gentrio.zhrb.service.Service;
 import com.gentrio.zhrb.service.ServiceClient;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initVariable();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,25 +50,32 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        initVariable();
         initView();
         getData();
     }
 
+    //变量初始化
     private void initVariable() {
         data = new LatestBean(new String(),new ArrayList<LatestBean.StoriesBean>(),new ArrayList<LatestBean.TopStoriesBean>());
         service = ServiceClient.getService();
+        SharedPreferences sp = getSharedPreferences("nightMode", MODE_PRIVATE);
+        BaseApplication.setIsNight(sp.getBoolean("isNight", false));
+        if (BaseApplication.getIsNight()) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else{
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     //控件初始化
     private void initView() {
 
         setTitle(R.string.main_name);
-
         swipe_refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipe_refresh.setColorSchemeResources(R.color.colorPrimary);
 
 
+        //设置下拉刷新监听器
         swipe_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -79,6 +90,7 @@ public class MainActivity extends AppCompatActivity
         final LinearLayoutManager manager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(manager);
 
+        //上拉加载
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -94,7 +106,6 @@ public class MainActivity extends AppCompatActivity
                     if (isRefresh){
                         return;
                     }
-
                     if (!isLoading){
                         isLoading = true;
                         //没有处于加载状态，然后需要加载数据，就可以分页加载了
@@ -144,6 +155,11 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        if (BaseApplication.getIsNight()) {
+            menu.findItem(R.id.action_night).setTitle("日间模式");
+        }else{
+            menu.findItem(R.id.action_night).setTitle("夜间模式");
+        }
         return true;
     }
 
@@ -153,15 +169,34 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         switch (id) {
-            case R.id.action_message:
+            //关于我
+            case R.id.action_about:
+                return AboutMeActivity.start(this);
+            //收藏
+            case R.id.action_collect:
+                return CollectActivity.start(this);
+            //夜间模式
+            case R.id.action_night:
+                //更改配置信息
+                BaseApplication.setIsNight(!BaseApplication.getIsNight());
+                SharedPreferences sp = getSharedPreferences("nightMode", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putBoolean("isNight", BaseApplication.getIsNight());
+                editor.commit();
+                if (BaseApplication.getIsNight()) {
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }else{
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+                recreate();
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
