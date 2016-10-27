@@ -16,8 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gentrio.zhrb.R;
+import com.gentrio.zhrb.app.BaseApplication;
 import com.gentrio.zhrb.bean.LatestBean;
 import com.gentrio.zhrb.ui.activity.WebActivity;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context context;
+    private static Context context;
     private LatestBean datas;
     private final int TOP_VIEW = 0;
     private final int ITEM_VIEW = 1;
@@ -53,7 +55,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 View view = inflater.inflate(R.layout.item_topvp, null);
                 ImageView vp_iv = (ImageView) view.findViewById(R.id.vp_iv);
                 TextView vp_tv = (TextView) view.findViewById(R.id.vp_tv);
-                Picasso.with(context).load(datas.getTop_stories().get(i).getImage()).into(vp_iv);
+                if (BaseApplication.getIsLoadImg()) {
+                    Picasso.with(context).load(datas.getTop_stories().get(i).getImage()).placeholder(R.drawable.image_top_default).into(vp_iv);
+                }else{
+                    Picasso.with(context).load(datas.getTop_stories().get(i).getImage()).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.image_top_default).into(vp_iv);
+                }
                 vp_tv.setText(datas.getTop_stories().get(i).getTitle());
                 view.setTag(datas.getTop_stories().get(i).getId());
                 view.setOnClickListener(new View.OnClickListener() {
@@ -90,9 +96,19 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             TopViewHolder tHolder = (TopViewHolder) holder;
         } else if (holder instanceof ItemViewHolder) {
             ItemViewHolder iHolder = (ItemViewHolder) holder;
+            if (datas.getStories().get(position).getMultipic()){
+                iHolder.home.setVisibility(View.VISIBLE);
+            }else{
+                iHolder.home.setVisibility(View.GONE);
+            }
             iHolder.cardView.setTag(datas.getStories().get(position).getId());
             iHolder.title.setText(datas.getStories().get(position).getTitle());
-            Picasso.with(context).load(datas.getStories().get(position).getImages().get(0)).into(iHolder.images);
+            if (BaseApplication.getIsLoadImg()){
+                Picasso.with(context).load(datas.getStories().get(position).getImages().get(0)).placeholder(R.drawable.image_small_default).into(iHolder.images);
+            }else{
+                Picasso.with(context).load(datas.getStories().get(position).getImages().get(0)).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.image_small_default).into(iHolder.images);
+            }
+
         }
     }
 
@@ -110,17 +126,19 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         CardView cardView;
         TextView title;
         ImageView images;
+        ImageView home;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.cardView);
             title = (TextView) itemView.findViewById(R.id.title);
             images = (ImageView) itemView.findViewById(R.id.images);
+            home = (ImageView) itemView.findViewById(R.id.home);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -133,7 +151,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
-    class TopViewHolder extends RecyclerView.ViewHolder{
+    static class TopViewHolder extends RecyclerView.ViewHolder{
 
         ViewPager vp;
 

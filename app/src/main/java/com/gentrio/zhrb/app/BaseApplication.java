@@ -21,6 +21,8 @@ public class BaseApplication extends Application {
     private static String cachePath;
     private static Context context;
     private static boolean isNight;
+    private static boolean isNormal;
+    private static boolean isLoadImg;
 
     @Override
     public void onCreate() {
@@ -59,5 +61,21 @@ public class BaseApplication extends Application {
 
     public static boolean getIsNight() {
         return isNight;
+    }
+
+    public static void setIsNormal(boolean isNormal) {
+        BaseApplication.isNormal = isNormal;
+    }
+
+    public static boolean getIsNormal() {
+        return isNormal;
+    }
+
+    public static void setIsLoadImg(boolean isLoadImg) {
+        BaseApplication.isLoadImg = isLoadImg;
+    }
+
+    public static boolean getIsLoadImg() {
+        return isLoadImg;
     }
 }

@@ -2,11 +2,13 @@ package com.gentrio.zhrb.ui.activity;
 
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -18,8 +20,10 @@ import com.gentrio.zhrb.service.DbService;
 import com.gentrio.zhrb.service.Service;
 import com.gentrio.zhrb.service.ServiceClient;
 import com.gentrio.zhrb.service.SimpleCallBack;
+import com.gentrio.zhrb.ui.view.CommonWebView;
 import com.gentrio.zhrb.utils.DbHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -30,7 +34,7 @@ import rx.schedulers.Schedulers;
 
 public class WebActivity extends BaseActivity {
 
-    private WebView webView;
+    private CommonWebView webView;
     private String id;
     private NewsBean data;
     private DbService dbService;
@@ -51,11 +55,19 @@ public class WebActivity extends BaseActivity {
             public void onResponse(NewsBean result, int code, String msg) {
                 data = result;
                 String body;
-                //通过更改<body>的CLASS属性来设置夜间模式
+                //通过更改<body>的CLASS属性来设置夜间模式和字体大小
                 if (BaseApplication.getIsNight()) {
-                    body = "<body class=\"night\">";
+                    if (BaseApplication.getIsNormal()) {
+                        body = "<body class=\"night\">";
+                    }else{
+                        body = "<body class=\"night large\">";
+                    }
                 }else{
-                    body = "<body>";
+                    if (BaseApplication.getIsNormal()) {
+                        body = "<body>";
+                    }else{
+                        body = "<body class=\"large\">";
+                    }
                 }
                 //body体
                 String content = result.getBody()+"</body>";
@@ -67,7 +79,10 @@ public class WebActivity extends BaseActivity {
     }
 
     private void initView() {
-        webView = (WebView) findViewById(R.id.webView);
+        webView = (CommonWebView) findViewById(R.id.webView);
+        if (!BaseApplication.getIsLoadImg()) {
+            webView.setLoadImg(false);
+        }
     }
 
     private void initVariable() {

@@ -74,4 +74,9 @@ public class CommonWebView extends WebView {
 
 //        setWebChromeClient(new WebChromeClient());
     }
+
+    public void setLoadImg(boolean result) {
+        WebSettings settings = getSettings();
+        settings.setLoadsImagesAutomatically(result);
+    }
 }

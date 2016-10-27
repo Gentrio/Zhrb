@@ -63,7 +63,16 @@ public class LatestBean {
         private int id;
         private String ga_prefix;
         private String title;
+        private boolean multipic;
         private List<String> images;
+
+        public boolean getMultipic() {
+            return multipic;
+        }
+
+        public void setMultipic(boolean multipic) {
+            this.multipic = multipic;
+        }
 
         public int getType() {
             return type;
