@@ -1,4 +1,4 @@
-#模仿的知乎日报(修改成符合我的使用习惯)
+#模仿的知乎日报
 
 ##简介
 
@@ -33,7 +33,8 @@
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 ```
 ##声明
-本软件与其代码非由知乎创作或维护。软件中所包含的信息与内容皆违反版权与知乎用户协议,其中的所有内容均可在知乎获取,若侵犯知乎的权益，则立即删除此页面和所有项目。API来自 https://github.com/izzyleung/ZhihuDailyPurify/wiki/知乎日报-API-分析
+* 本软件与其代码非由知乎创作或维护。软件中所包含的信息与内容皆违反版权与知乎用户协议,其中的所有内容均可在知乎获取,若侵犯知乎的权益，则立即删除此页面和所有项目。  
+* API来自 https://github.com/izzyleung/ZhihuDailyPurify/wiki/知乎日报-API-分析 非常感谢！
 
 ##显示
 ![alt text](https://github.com/Gentrio/zhrb/blob/master/one.png)
