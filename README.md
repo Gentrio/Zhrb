@@ -1,6 +1,6 @@
-#模仿的知乎日报
+# 模仿的知乎日报
 
-##简介
+## 简介
 
 本人使用知乎日报的频率比较高,可是知乎日报的一些功能并不满足我的日常使用习惯(其实是为了省流量...)
 
@@ -13,7 +13,7 @@
 * 遵循Material Design 
 * 使用了Retrofit2 Picasso RxAndroid RxJava
 
-##依赖
+## 依赖
 
 * Java Development Kit (JDK) 7 +
 * com.android.tools.build:gradle:2.0.0
@@ -21,7 +21,7 @@
   * SDK 23
   * build tool 24.0.0 rc1
   
-##权限说明
+## 权限说明
 ```xml
 //获取网络状态
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -32,11 +32,11 @@
 //写入扩展卡信息
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 ```
-##声明
+## 声明
 * 本软件与其代码非由知乎创作或维护。软件中所包含的信息与内容皆违反版权与知乎用户协议,其中的所有内容均可在知乎获取,若侵犯知乎的权益，则立即删除此页面和所有项目。  
 * API来自 https://github.com/izzyleung/ZhihuDailyPurify/wiki/知乎日报-API-分析 非常感谢！
 
-##显示
+## 显示
 ![alt text](https://github.com/Gentrio/zhrb/blob/master/one.png)
 ![alt text](https://github.com/Gentrio/zhrb/blob/master/two.png)
 ![alt text](https://github.com/Gentrio/zhrb/blob/master/three.png)
